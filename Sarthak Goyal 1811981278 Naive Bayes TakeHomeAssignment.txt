@@ -1,0 +1,83 @@
+1.          import pandas as pd
+import matplotlib.pyplot as plt
+dh=pd.read_csv("C:\\Users\hp\Downloads\\mushrooms.csv")
+import seaborn as sns
+sns.countplot(x="cap-color", data=dh)
+plt.show()
+sns.countplot(x="cap-shape",data=dh)
+plt.show()
+sns.countplot(x="cap-surface",data=dh)
+plt.show()
+
+**********************************************************
+2.          c=dh['stalk-shape'].unique()
+i=0
+while i<len(dh):
+    if(dh['stalk-shape'].loc[i]==c[0]):
+        dh['stalk-shape'].loc[i]=1
+    if(dh['stalk-shape'].loc[i]==c[1]):
+        dh['stalk-shape'].loc[i]=0
+    i=i+1    
+sns.pairplot(dh,hue='class')
+
+    
+
+**********************************************************
+3.          sns.pairplot(dh,hue='habitat')
+q=dh['population'].unique()
+i=0
+while i<len(dh):
+    if(dh['population'].loc[i]==q[0]):
+        dh['population'].loc[i]=6
+    if(dh['population'].loc[i]==q[1]):
+        dh['population'].loc[i]=7
+    if(dh['population'].loc[i]==q[2]):
+        dh['population'].loc[i]=8
+    if(dh['population'].loc[i]==q[3]):
+        dh['population'].loc[i]=9
+    if(dh['population'].loc[i]==q[4]):
+        dh['population'].loc[i]=10
+    if(dh['population'].loc[i]==q[5]):
+        dh['population'].loc[i]=11     
+    i=i+1
+sns.pairplot(dh)
+
+**********************************************************
+4.          X=dh[['habitat','population','stalk-shape']]
+Y=dh['class']
+from sklearn.model_selection import train_test_split
+X_train,x_test,y_train,y_test=train_test_split(X,Y,test_size=0.25,random_state=42)
+#Import Gaussian Naive Bayes model
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit(X_train,y_train)
+#Create a Gaussian Classifier
+
+y_pred=model.predict(x_test)
+
+y_pred
+
+from sklearn.metrics import accuracy_score
+accuracy=accuracy_score(y_test,y_pred)*100
+accuracy
+
+**********************************************************
+5.          X=dh[['habitat','population','stalk-shape']]
+Y=dh['class']
+from sklearn.model_selection import train_test_split
+X_train,x_test,y_train,y_test=train_test_split(X,Y,test_size=0.25,random_state=42)
+#Import Gaussian Naive Bayes model
+from sklearn.naive_bayes import BernoulliNB
+model = BernoulliNB()
+model.fit(X_train,y_train)
+#Create a Gaussian Classifier
+
+y_pred=model.predict(x_test)
+
+y_pred
+
+from sklearn.metrics import accuracy_score
+accuracy=accuracy_score(y_test,y_pred)*100
+accuracy
+
+**********************************************************
